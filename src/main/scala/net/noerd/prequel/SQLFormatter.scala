@@ -87,4 +87,5 @@ object SQLFormatterImplicits {
     implicit def date2Formattable( wrapped: Date ) = DateTimeFormattable( wrapped )
     implicit def duration2Formattable( wrapped: Duration ) = new DurationFormattable( wrapped )
     implicit def binary2Formattable( wrapped: Array[Byte] ) = new BinaryFormattable( wrapped )
+    implicit def bigDecimalFormattable( wrapped: BigDecimal ) = new BigDecimalFormattable( wrapped )
 }

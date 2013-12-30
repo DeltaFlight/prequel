@@ -103,3 +103,14 @@ class BinaryColumnType( row: ResultSetRow ) extends ColumnType[ Array[Byte] ] {
 object BinaryColumnType extends ColumnTypeFactory[ Array[Byte] ] {
     def apply( row: ResultSetRow ) = new BinaryColumnType( row )
 }
+
+//
+// BigDecimal
+//
+
+class BigDecimalColumnType( row: ResultSetRow ) extends ColumnType[ BigDecimal ] {
+  override def nextValueOption: Option[ BigDecimal ] = row.nextBigDecimal
+}
+object BigDecimalColumnType extends ColumnTypeFactory[ BigDecimal ] {
+  def apply( row: ResultSetRow ) = new BigDecimalColumnType( row )
+}

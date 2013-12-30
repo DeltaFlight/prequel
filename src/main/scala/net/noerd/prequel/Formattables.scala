@@ -185,3 +185,21 @@ class BinaryFormattable( val value: Array[Byte] ) extends Formattable {
 object BinaryFormattable{
     def apply( value: Array[Byte] ) = new BinaryFormattable( value )
 }
+
+//
+// BigDecimal
+//
+class BigDecimalFormattable( val value: BigDecimal )
+  extends Formattable {
+  override def escaped( formatter: SQLFormatter ): String = {
+    formatter.toSQLString( value.toString() )
+  }
+  override def addTo( statement: ReusableStatement ): Unit = {
+    statement.addBigDecimal( value )
+  }
+}
+object BigDecimalFormattable{
+  def apply( value: BigDecimal ) = {
+    new BigDecimalFormattable( value )
+  }
+}
