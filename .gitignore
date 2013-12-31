@@ -1,3 +1,15 @@
 lib_managed
 target
 project/boot
+.idea
+.idea_modules
+/bin
+.cache
+.classpath
+.classpath.bak
+.project
+.settings/org.eclipse.jdt.core.prefs
+.fatjar
+prequelous_fat_hotfix_V3.0.3.jar
+src/test/scala/net/noerd/prequel/SomeTestsNoJunit.scala
+prequelous_V0.4.jar
