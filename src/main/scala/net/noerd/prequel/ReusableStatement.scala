@@ -205,7 +205,10 @@ class ReusableStatement(val wrapped: PreparedStatement, formatter: SQLFormatter)
   /**
    * Add a BigDecimal to the current parameter index
    */
-  def addBigDecimal( value: BigDecimal ): Unit = addValue( wrapped.setBigDecimal( parameterIndex, value.bigDecimal ) )
+  def addBigDecimal( value: BigDecimal ): Unit = {
+    params += value.toString
+    addValue(() => wrapped.setBigDecimal(parameterIndex, value.bigDecimal))
+  }
 
   /**
    * Add Null to the current parameter index

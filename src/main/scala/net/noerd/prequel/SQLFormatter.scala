@@ -133,7 +133,7 @@ object SQLFormatterImplicits {
   implicit def clob2FormattableOption[A](wrapped: Option[java.io.Reader]) = new ClobFormattableOption(wrapped)
 
   implicit def bigDecimalFormattable( wrapped: BigDecimal ) = new BigDecimalFormattable( wrapped )
-  implicit def bigDecimalFormattableOption( wrapped: BigDecimal ) = new BigDecimalFormattable( wrapped )
+  implicit def bigDecimalFormattableOption( wrapped: Option[BigDecimal] ) = new BigDecimalFormattableOption( wrapped )
 
   implicit def null2Formattable[A](wrapped: Option[Formattable]) = new Nullable(wrapped)
     

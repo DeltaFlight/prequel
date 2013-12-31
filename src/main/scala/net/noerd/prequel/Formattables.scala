@@ -508,6 +508,22 @@ object BigDecimalFormattable{
   }
 }
 
+class BigDecimalFormattableOption( val value: Option[BigDecimal] )
+  extends Formattable {
+  override def escaped( formatter: SQLFormatter ): String = {
+    formatter.toSQLString( value.toString() )
+  }
+  override def addTo( statement: ReusableStatement ): Unit = value match {
+    case Some(bigDecimal) => statement.addBigDecimal( bigDecimal )
+    case None => statement.addNull()
+  }
+}
+object BigDecimalFormattableOption{
+  def apply( value: Option[BigDecimal] ) = {
+    new BigDecimalFormattableOption( value )
+  }
+}
+
 /*class ListFormattable[A](val list: List[A]) extends Formattable {
   override def escaped(formatter: SQLFormatter): String = list map {
     case s: String => formatter.toSQLString(s)   

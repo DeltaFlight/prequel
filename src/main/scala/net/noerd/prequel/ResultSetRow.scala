@@ -44,7 +44,7 @@ class ResultSetRow(val rs: ResultSet) {
 
   def nextClob: Option[java.io.Reader] = nextValueOption(rs.getCharacterStream)
 
-  def nextBigDecimal: Option[ BigDecimal ] = nextValueOption( i => BigDecimal(rs.getBigDecimal) )
+  def nextBigDecimal: Option[ BigDecimal ] = nextValueOption( i => BigDecimal(rs.getBigDecimal(i)) )
 
   def columnBoolean(columnName: String): Option[ Boolean ] = columnValueOption(columnName, rs.getBoolean )
 
@@ -68,6 +68,8 @@ class ResultSetRow(val rs: ResultSet) {
 
   def columnClob(columnName: String): Option[java.io.Reader] = columnValueOption(columnName, rs.getCharacterStream)
 
+  def columnBigDecimal(columnName: String): Option[BigDecimal] = columnValueOption(columnName,
+    i => BigDecimal(rs.getBigDecimal(i)))
 
 
   val columnNames: ArrayBuffer[String] = {
@@ -151,6 +153,9 @@ object ResultSetRowImplicits {
     implicit def row2DateTime( row: ResultSetRow ) = DateTimeColumnType( row ).nextValue
     implicit def row2Duration( row: ResultSetRow ) = DurationColumnType( row ).nextValue
     implicit def row2Binary( row: ResultSetRow ) = BinaryColumnType( row ).nextValue
+    implicit def row2InputStream(row: ResultSetRow) = BlobColumnType(row).nextValue
+    implicit def row2CharacterInputStream(row: ResultSetRow) = ClobColumnType(row).nextValue
+    implicit def row2BigDecimal( row: ResultSetRow ) = BigDecimalColumnType( row ).nextValue
 
     implicit def row2BooleanOption( row: ResultSetRow ) = BooleanColumnType( row ).nextValueOption
     implicit def row2IntOption( row: ResultSetRow ) = IntColumnType( row ).nextValueOption
@@ -162,4 +167,7 @@ object ResultSetRowImplicits {
     implicit def row2DateTimeOption( row: ResultSetRow ) = DateTimeColumnType( row ).nextValueOption
     implicit def row2DurationOption( row: ResultSetRow ) = DurationColumnType( row ).nextValueOption
     implicit def row2BinaryOption( row: ResultSetRow ) = BinaryColumnType( row ).nextValueOption
+    implicit def row2InputStreamOption(row: ResultSetRow) = BlobColumnType(row).nextValueOption
+    implicit def row2CharacterInputStreamOption(row: ResultSetRow) = ClobColumnType(row).nextValueOption
+    implicit def row2BigDecimalOption( row: ResultSetRow ) = BigDecimalColumnType( row ).nextValueOption
 }

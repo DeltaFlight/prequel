@@ -129,6 +129,7 @@ object BinaryColumnType extends ColumnTypeFactory[Array[Byte]] {
 
 class BigDecimalColumnType( row: ResultSetRow ) extends ColumnType[ BigDecimal ] {
   override def nextValueOption: Option[ BigDecimal ] = row.nextBigDecimal
+  override def columnValueOption(columnName: String): Option[BigDecimal] = row.columnBigDecimal(columnName)
 }
 object BigDecimalColumnType extends ColumnTypeFactory[ BigDecimal ] {
   def apply( row: ResultSetRow ) = new BigDecimalColumnType( row )
